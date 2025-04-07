@@ -1,7 +1,15 @@
-﻿namespace Evaluator.Logic;
+﻿using System.Data;
+
+namespace Evaluator.Logic;
 
 public class FunctionEvaluator
 {
+    public static double Evaluate(string expression)
+    {
+        expression = expression.Replace("^", "**");
+        var result = new DataTable().Compute(expression, null);
+        return Convert.ToDouble(result);
+    }
     public static double Evalute(string infix)
     {
         var postfix = ToPostfix(infix);
